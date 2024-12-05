@@ -255,6 +255,9 @@ def main():
             logging.error("'win_loss' column is missing in 'nba_games_updated.csv'.")
             return
 
+        # Compute the spread for each game
+        games_df['spread'] = games_df['Tm'] - games_df['Opp']
+
         # Apply the methods
         games_df = multiple_games_in_short_timeframe(games_df)
         games_df = playing_at_high_altitude(games_df)
@@ -263,7 +266,7 @@ def main():
         games_df = sleep_debt_penalty(games_df)
         games_df = game_time_is_played_during_handicapped_performance_hours(games_df)
         games_df = game_time_is_in_played_during_optimal_performance_hours(games_df)
-        games_df = calculate_rest_time_between_games(games_df)  # New function added
+        games_df = calculate_rest_time_between_games(games_df)
         games_df = calculate_sleep_score(games_df)
 
         # Write the updated DataFrame to a new CSV file
@@ -306,10 +309,16 @@ def main():
             losses = len(bucket_games[bucket_games["win_loss"] == "L"])
             wins = num_games - losses
             loss_ratio = (losses / num_games * 100) if num_games > 0 else 0
+
+            # Calculate average and median spread
+            avg_spread = bucket_games['spread'].mean() if not bucket_games.empty else 0
+            median_spread = bucket_games['spread'].median() if not bucket_games.empty else 0
+
             logging.info(f"Sleep score between {bucket_start} and {bucket_end}:")
             logging.info(
                 f"Number of games: {num_games}, Losses: {losses}, Wins: {wins}, Loss ratio: {loss_ratio:.2f}%"
             )
+            logging.info(f"Avg spread: {avg_spread:+.2f} Median spread: {median_spread:+.2f}")
 
         logging.info("Sleep Scoring Completed.")
     except Exception as e:

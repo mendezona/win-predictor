@@ -314,10 +314,12 @@ def main():
         "game_time_local_timezone",
         "home_game",
         "Opponent",
+        "Tm",   # Added 'Tm'
+        "Opp",  # Added 'Opp'
         "W_total",
         "L_total",
         "Streak",
-        "win_loss",  # Added win_loss here
+        "win_loss",
         "city",
         "state",
         "country",
@@ -338,6 +340,9 @@ def main():
         )
 
     games_df = games_df[existing_final_columns]
+
+    # Log the columns in the DataFrame before saving
+    logging.info("Columns in games_df before saving: %s", games_df.columns.tolist())
 
     # Write the modified DataFrame to a new CSV file
     output_csv_path = "nba_games_updated.csv"
