@@ -1,5 +1,3 @@
-# clean_csv.py
-
 import pandas as pd
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -225,9 +223,9 @@ def main():
     # Convert the 'Date' column to 'YYYY-MM-DD' format
     try:
         games_df["date_converted"] = pd.to_datetime(
-            games_df["Date"], format="%a, %b %d, %Y"
+            games_df["Date"], format="%a %b %d %Y"
         ).dt.strftime("%Y-%m-%d")
-    except Exception as e:
+    except ValueError as e:
         logging.error("Error converting 'Date' column: %s", e)
         # Attempt to parse without specifying format
         games_df["date_converted"] = pd.to_datetime(

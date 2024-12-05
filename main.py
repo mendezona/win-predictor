@@ -1,5 +1,3 @@
-# main.py
-
 import helpers.clean_csv as clean_csv
 import helpers.sleep_scoring as sleep_scoring
 import os
