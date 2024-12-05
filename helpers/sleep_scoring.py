@@ -313,12 +313,19 @@ def main():
             # Calculate average and median spread
             avg_spread = bucket_games['spread'].mean() if not bucket_games.empty else 0
             median_spread = bucket_games['spread'].median() if not bucket_games.empty else 0
+            
+            # Calculate average and median spread for losses only
+            losses_only = bucket_games[bucket_games['win_loss'] == 'L']
+            avg_spread_losses = losses_only['spread'].mean() if not losses_only.empty else 0
+            median_spread_losses = losses_only['spread'].median() if not losses_only.empty else 0
 
             logging.info(f"Sleep score between {bucket_start} and {bucket_end}:")
             logging.info(
                 f"Number of games: {num_games}, Losses: {losses}, Wins: {wins}, Loss ratio: {loss_ratio:.2f}%"
             )
             logging.info(f"Avg spread: {avg_spread:+.2f} Median spread: {median_spread:+.2f}")
+            logging.info(f"Avg spread (losses only): {avg_spread_losses:+.2f} Median spread (losses only): {median_spread_losses:+.2f}")
+            logging.info("\n--------\n")
 
         logging.info("Sleep Scoring Completed.")
     except Exception as e:
