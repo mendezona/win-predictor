@@ -1,0 +1,10 @@
+[flake8]
+max-line-length = 88
+extend-ignore =
+    # Black handles formatting, so ignore related Flake8 rules
+    E203,  # Whitespace before ':'
+    E266,  # Too many leading '#' for block comment
+    E501,  # Line too long (Black already handles this)
+    W503,  # Line break before binary operator
+    F403,  # 'from module import *' used; unable to detect undefined names
+    F405   # 'variable' may be undefined, or defined from star imports
