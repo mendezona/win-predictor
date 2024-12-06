@@ -325,7 +325,7 @@ def main():
             )
             logging.info(f"Avg spread: {avg_spread:+.2f} Median spread: {median_spread:+.2f}")
             logging.info(f"Avg spread (losses only): {avg_spread_losses:+.2f} Median spread (losses only): {median_spread_losses:+.2f}")
-            logging.info("\n--------\n")
+            logging.info("\n--------------------------------\n")
 
         logging.info("Sleep Scoring Completed.")
     except Exception as e:
